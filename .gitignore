@@ -1,0 +1,23 @@
+# Data directories
+/pali_hela_script/
+/pali_cannon/
+/sujato/
+/sutta-reader/.venv/*
+
+# Data files
+*.csv
+*.json
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+
+# IDE
+.vscode/
