@@ -1,33 +1,64 @@
+# Docker Compose file for Palican project
+# Includes PostgreSQL 16 with pgvector and pgAdmin 4 web GUI
+# Data is persisted in Docker volumes
+
 services:
   postgres:
-    image: postgres:16
-    container_name: pali_canon_pg
-    restart: always
+    image: postgres:16                      # Use latest stable PostgreSQL 16
+    container_name: pali_canon_pg           # Name for this container
+    restart: always                         # Always restart if the container stops
     environment:
-      POSTGRES_USER: pali_canon
-      POSTGRES_PASSWORD: anicca
-      POSTGRES_DB: pali_canon_db
+      POSTGRES_USER: pali_canon            # DB user
+      POSTGRES_PASSWORD: anicca            # DB password
+      POSTGRES_DB: pali_canon_db           # Initial database name
     ports:
-      - "5432:5432"
+      - "5432:5432"                        # external:internal mapping; Postgres standard port
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - pgdata:/var/lib/postgresql/data    # Persist DB files in Docker named volume 'pgdata'
     command: >
-      postgres -c shared_preload_libraries='pgvector'
+      postgres -c shared_preload_libraries='pgvector'   # Load pgvector extension at startup
 
   pgadmin:
-    image: dpage/pgadmin4:latest
-    container_name: pgadmin
-    restart: always
+    image: dpage/pgadmin4:latest           # Web-based GUI for managing PostgreSQL
+    container_name: pgadmin                 # Name for pgAdmin container
+    restart: always                         # Always restart if the container stops
     environment:
-      PGADMIN_DEFAULT_EMAIL: admin@palican.com
-      PGADMIN_DEFAULT_PASSWORD: admin123
+      PGADMIN_DEFAULT_EMAIL: admin@canon.com   # Login email for pgAdmin
+      PGADMIN_DEFAULT_PASSWORD: admin123        # Login password for pgAdmin
     ports:
-      - "8080:80"
+      - "8081:80"                           # Map container port 80 (internal) to 8081 (host) to avoid conflicts
     depends_on:
-      - postgres
+      - postgres                            # Ensure Postgres starts before pgAdmin
     volumes:
-      - pgadmin_data:/var/lib/pgadmin
+      - pgadmin_data:/var/lib/pgadmin       # Persist pgAdmin config/settings in Docker named volume
 
 volumes:
-  pgdata:
-  pgadmin_data:
+  pgdata:          # Named volume for Postgres DB data
+  pgadmin_data:    # Named volume for pgAdmin configuration
+
+
+
+# Start all services (Postgres + pgAdmin) in detached/background mode
+#docker-compose up -d
+
+
+# Stop and remove all containers defined in the Compose file (volumes persist)
+#docker-compose down
+
+# List all running containers for this Compose project
+#docker-compose ps
+
+# Follow real-time logs of the Postgres container
+#docker-compose logs -f postgres
+
+# Follow real-time logs of the pgAdmin container
+#docker-compose logs -f pgadmin
+
+# Open pgAdmin web interface in browser: http://localhost:8081
+# Login with email: admin@palican.com and password: admin123
+
+# Connect to Postgres using psql client
+#docker-compose exec postgres psql -U pali_canon -d pali_canon_db
+#docker-compose exec postgres psql -U pali_canon -d pali_canon_db -c "\dt"
+#docker-compose exec postgres psql -U pali_canon -d pali_canon_db -c "\du"
+#docker-compose exec postgres psql -U pali_canon -d pali_canon_db -c "\q"
