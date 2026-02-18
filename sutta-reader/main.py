@@ -1,21 +1,19 @@
+import sys
+from pathlib import Path
+
+# Add parent directory to path for pali_text_models package
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
-from sqlmodel import Field, SQLModel, Session, create_engine, select, text
+from sqlmodel import Session, select, text
 from natsort import natsorted
 from init_db import init_db
-
-# Model
-class Sutta(SQLModel, table=True):
-    index: str = Field(primary_key=True)
-    nikaya: str
-    vagga: str
-    sutta_id: str
-    text: str | None
-    hela_text: str | None
+from pali_text_models import Sutta, get_engine
 
 # DB
-engine = create_engine("duckdb:///pali_canon.db", echo=False)
+engine = get_engine()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -38,7 +36,7 @@ def list_suttas_by_nikaya(nikaya: str):
     """List all sutta_ids for a specific nikaya"""
     with Session(engine) as s:
         result = s.exec(text(
-            f"SELECT DISTINCT sutta_id FROM sutta WHERE nikaya = :nikaya AND sutta_id != ''"
+            "SELECT DISTINCT sutta_id FROM sutta WHERE nikaya = :nikaya AND sutta_id != ''"
         ).bindparams(nikaya=nikaya))
         return natsorted([r[0] for r in result])
 
