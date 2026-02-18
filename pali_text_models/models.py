@@ -5,18 +5,27 @@ from sqlmodel import Field, SQLModel, create_engine, Session
 # Database connection settings
 DATABASE_URL = os.getenv(
     "DATABASE_URL",
-    "postgresql+psycopg://pali_canon:anicca@localhost:5432/pali_canon_db"
+    "postgresql+psycopg2://pali_canon:anicca@localhost:5432/pali_canon_db"
 )
 
 # SQLModel models
 class SuttaTextModel(SQLModel, table=True):
-    """A single verse/segment from the Pali Canon"""
+    """A single verse/segment from the Sutta Texts"""
     __tablename__ = "sutta_texts"
     
     index: str = Field(primary_key=True)
     nikaya: str
     vagga: str
     sutta_id: str
+    text: str | None = None
+    hela_text: str | None = None
+
+
+class AbhidhammaTextModel(SQLModel, table=True):
+    """A single verse/segment from the Abhidhamma Text"""
+    __tablename__ = "abhidhamma_texts"
+    
+    index: str = Field(primary_key=True)
     text: str | None = None
     hela_text: str | None = None
 
