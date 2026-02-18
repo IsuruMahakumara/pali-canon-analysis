@@ -4,7 +4,7 @@
 
 services:
   postgres:
-    image: postgres:16                      # Use latest stable PostgreSQL 16
+    image: postgres:16                       # Use latest stable PostgreSQL 16
     container_name: pali_canon_pg           # Name for this container
     restart: always                         # Always restart if the container stops
     environment:
@@ -15,8 +15,8 @@ services:
       - "5432:5432"                        # external:internal mapping; Postgres standard port
     volumes:
       - pgdata:/var/lib/postgresql/data    # Persist DB files in Docker named volume 'pgdata'
-    command: >
-      postgres -c shared_preload_libraries='pgvector'   # Load pgvector extension at startup
+ 
+# Load pgvector extension at startup
 
   pgadmin:
     image: dpage/pgadmin4:latest           # Web-based GUI for managing PostgreSQL
