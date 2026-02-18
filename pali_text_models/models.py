@@ -1,4 +1,4 @@
-"""SQLModel data models for Pali Canon database - reusable in notebooks and FastAPI"""
+"""Pali Text Models - SQLModel schemas for Pali Canon text units (suttas, verses, etc.)"""
 import os
 from sqlmodel import Field, SQLModel, create_engine, Session
 

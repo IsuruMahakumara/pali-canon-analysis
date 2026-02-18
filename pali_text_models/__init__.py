@@ -1,5 +1,5 @@
-"""Pali Canon database models and utilities"""
-from pali_db.models import (
+"""Pali Text Models - SQLModel schemas for Pali Canon text units"""
+from pali_text_models.models import (
     Sutta,
     DATABASE_URL,
     get_engine,
