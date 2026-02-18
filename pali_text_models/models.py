@@ -5,12 +5,14 @@ from sqlmodel import Field, SQLModel, create_engine, Session
 # Database connection settings
 DATABASE_URL = os.getenv(
     "DATABASE_URL",
-    "postgresql://pali_canon:anicca@localhost:5432/pali_canon_db"
+    "postgresql+psycopg://pali_canon:anicca@localhost:5432/pali_canon_db"
 )
 
 # SQLModel models
-class Sutta(SQLModel, table=True):
+class SuttaTextModel(SQLModel, table=True):
     """A single verse/segment from the Pali Canon"""
+    __tablename__ = "sutta_texts"
+    
     index: str = Field(primary_key=True)
     nikaya: str
     vagga: str
