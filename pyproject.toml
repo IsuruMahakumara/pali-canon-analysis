@@ -1,0 +1,13 @@
+[project]
+name = "pali-canon-analysis"
+version = "0.1.0"
+description = "Pali Canon analysis tools - shared models and utilities"
+requires-python = ">=3.11"
+dependencies = [
+    "sqlmodel>=0.0.22",
+    "psycopg2-binary>=2.9.9",
+]
+
+[tool.setuptools.packages.find]
+include = ["pali_text_models*"]
+
