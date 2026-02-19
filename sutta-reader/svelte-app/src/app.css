@@ -111,6 +111,10 @@ nav.collapsed {
   border-radius: 8px;
   transition: background 0.15s;
   user-select: none;
+  width: 100%;
+  background: none;
+  border: none;
+  text-align: left;
 }
 
 .nav-section-header:hover {
@@ -160,6 +164,7 @@ nav.collapsed {
   transition: all 0.15s ease;
   cursor: pointer;
   background: var(--card);
+  border: none;
 }
 
 .nav-item:hover {
