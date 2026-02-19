@@ -1,10 +1,10 @@
-# Docker Compose file for Palican project
-# Includes PostgreSQL 16 with pgvector and pgAdmin 4 web GUI
+# Docker Compose file for Pali Canon Analysis project
+# Includes Custom built Postgres from apache/age with Apache AGE + PGVector extensions and pgAdmin 4 web GUI
 # Data is persisted in Docker volumes
 
 services:
   postgres:
-    image: postgres:16                       # Use latest stable PostgreSQL 16
+    image: pg-age-vector:latest                     # Use custom built image from Dockerfile
     container_name: pali_canon_pg           # Name for this container
     restart: always                         # Always restart if the container stops
     environment:
@@ -15,7 +15,7 @@ services:
     ports:
       - "5432:5432"                        # external:internal mapping; Postgres standard port
     volumes:
-      - pgdata:/var/lib/postgresql/data    # Persist DB files in Docker named volume 'pgdata'
+      - pgdata:/var/lib/postgresql    # Persist DB files in Docker named volume 'pgdata'
  
 # Load pgvector extension at startup
 
