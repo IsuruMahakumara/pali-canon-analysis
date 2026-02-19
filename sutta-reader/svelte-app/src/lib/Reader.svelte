@@ -1,47 +1,38 @@
 <script>
-  import Verse from './Verse.svelte';
-  import { currentSuttaId, verses, loading, showHela, displayName } from './stores.js';
-  
-  function toggleScript() {
-    showHela.update(v => !v);
-  }
+  import { state, getSuttaName } from './state.svelte.js';
 </script>
 
 <div class="reader">
-  {#if !$currentSuttaId}
-    <!-- Welcome screen -->
+  {#if !state.current}
     <div class="welcome">
       <h1>Sutta Reader</h1>
       <p>Select a sutta from the collection</p>
     </div>
-  {:else if $loading}
-    <!-- Loading state -->
-    <div class="loading">
-      <span class="spinner"></span>Loading...
-    </div>
+  {:else if state.loading}
+    <div class="loading"><span class="spinner"></span>Loading...</div>
   {:else}
-    <!-- Sutta content -->
     <header class="sutta-header">
       <div class="sutta-header-top">
         <div>
-          <div class="sutta-id">{$currentSuttaId.toUpperCase()}</div>
-          <h1 class="sutta-title">{$displayName}</h1>
+          <div class="sutta-id">{state.current.toUpperCase()}</div>
+          <h1 class="sutta-title">{getSuttaName(state.showHela)}</h1>
         </div>
-        <div class="toolbar">
-          <button 
-            class="script-toggle" 
-            class:active={$showHela}
-            onclick={toggleScript}
-          >
-            {$showHela ? 'Latin' : 'හෙළ'}
-          </button>
-        </div>
+        <button 
+          class="script-toggle" 
+          class:active={state.showHela}
+          onclick={() => state.showHela = !state.showHela}
+        >{state.showHela ? 'Latin' : 'හෙළ'}</button>
       </div>
     </header>
     
-    <div class="verses" class:hela-script={$showHela}>
-      {#each $verses as verse (verse.index)}
-        <Verse {verse} showHela={$showHela} />
+    <div class="verses" class:hela-script={state.showHela}>
+      {#each state.verses as v (v.index)}
+        {@const num = v.index.split(':')[1]}
+        {#if !num.startsWith('0.')}
+          <p class="verse">
+            <span class="verse-ref">{num}</span>{state.showHela ? (v.hela_text || v.text) : v.text}
+          </p>
+        {/if}
       {/each}
     </div>
   {/if}
