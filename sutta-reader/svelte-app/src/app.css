@@ -35,6 +35,10 @@ body {
   font-size: 18px;
 }
 
+#app {
+  height: 100%;
+}
+
 /* === Hamburger Button === */
 .hamburger {
   position: fixed;
@@ -367,3 +371,4 @@ main.expanded {
     font-size: 1.1rem;
   }
 }
+

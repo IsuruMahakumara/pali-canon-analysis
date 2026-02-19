@@ -15,6 +15,9 @@ from pali_text_models import SuttaTextModel, get_engine
 # DB
 engine = get_engine()
 
+# Static files directory (Svelte build output)
+STATIC_DIR = Path(__file__).parent / "static-svelte"
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -64,4 +67,6 @@ def get_sutta(sutta_id: str):
         return natsorted(result.all(), key=lambda x: x.index)
 
 
-app.mount("/", StaticFiles(directory="static", html=True), name="static")
+# Mount static files only if build exists (run `npm run build` in svelte-app first)
+if STATIC_DIR.exists():
+    app.mount("/", StaticFiles(directory=str(STATIC_DIR), html=True), name="static")
