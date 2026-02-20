@@ -9,8 +9,10 @@ from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from sqlmodel import Session, select, func, col
 from natsort import natsorted
+from strawberry.fastapi import GraphQLRouter
 from init_db import init_db
 from pali_text_models import SuttaTextModel, get_engine
+from graph_schema import schema
 
 # DB
 engine = get_engine()
@@ -26,6 +28,10 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(lifespan=lifespan)
+
+# GraphQL endpoint for graph queries
+graphql_app = GraphQLRouter(schema)
+app.include_router(graphql_app, prefix="/graphql")
 
 
 @app.get("/api/nikayas")
