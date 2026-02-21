@@ -1,5 +1,5 @@
-<script>
-  import { state, getSuttaName } from './state.svelte.js';
+<script lang="ts">
+  import { state, getSuttaName } from './state.svelte';
 </script>
 
 <div class="reader">

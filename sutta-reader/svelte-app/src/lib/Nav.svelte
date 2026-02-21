@@ -1,5 +1,5 @@
-<script>
-  import { state, api, NIKAYA_NAMES } from './state.svelte.js';
+<script lang="ts">
+  import { state, api, NIKAYA_NAMES } from './state.svelte';
 </script>
 
 <nav class:collapsed={!state.navOpen}>

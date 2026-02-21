@@ -1,13 +1,14 @@
-<script>
+<script lang="ts">
   import { onMount } from 'svelte';
   import Nav from './lib/Nav.svelte';
   import Reader from './lib/Reader.svelte';
   import GraphViewer from './lib/GraphViewer.svelte';
-  import { state as appState, api } from './lib/state.svelte.js';
+  import { state as appState, api } from './lib/state.svelte';
 
-  let currentPage = $state('reader');
+  let currentPage = $state<'reader' | 'graph'>('reader');
+  let innerWidth = $state(window.innerWidth);
 
-  function updateRoute() {
+  function updateRoute(): void {
     const hash = location.hash;
     if (hash === '#graph') {
       currentPage = 'graph';
@@ -24,6 +25,8 @@
     window.addEventListener('hashchange', updateRoute);
   });
 </script>
+
+<svelte:window bind:innerWidth />
 
 {#if currentPage === 'graph'}
   <GraphViewer />

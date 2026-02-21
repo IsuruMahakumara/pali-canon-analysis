@@ -15,3 +15,6 @@ dependencies = [
 [dependency-groups]
 dev = []
 
+[tool.setuptools]
+py-modules = ["main", "init_db", "graph_schema", "age_query"]
+

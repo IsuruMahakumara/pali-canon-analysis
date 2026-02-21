@@ -1,16 +1,40 @@
-<script>
+<script lang="ts">
   import { onMount } from 'svelte';
-  import cytoscape from 'cytoscape';
+  import cytoscape, { type Core, type ElementDefinition } from 'cytoscape';
 
-  let container;
-  let cy;
+  interface GraphNode {
+    id: number;
+    label?: string;
+    properties?: { name?: string };
+  }
+
+  interface GraphRelationship {
+    id: number;
+    start_id: number;
+    end_id: number;
+    label?: string;
+  }
+
+  interface GraphRow {
+    n?: GraphNode;
+    m?: GraphNode;
+    r?: GraphRelationship;
+  }
+
+  interface GraphQLResponse {
+    data?: { cypher: GraphRow[] };
+    errors?: Array<{ message: string }>;
+  }
+
+  let container: HTMLDivElement;
+  let cy: Core;
   let query = $state('MATCH (n)-[r]->(m) RETURN n, r, m LIMIT 50');
   let loading = $state(false);
   let error = $state('');
 
   const GRAPHQL_URL = '/graphql';
 
-  async function runQuery() {
+  async function runQuery(): Promise<void> {
     loading = true;
     error = '';
     
@@ -30,23 +54,25 @@
         })
       });
       
-      const json = await res.json();
+      const json: GraphQLResponse = await res.json();
       if (json.errors) {
         error = json.errors[0].message;
         return;
       }
       
-      renderGraph(json.data.cypher);
+      if (json.data) {
+        renderGraph(json.data.cypher);
+      }
     } catch (e) {
-      error = e.message;
+      error = e instanceof Error ? e.message : 'Unknown error';
     } finally {
       loading = false;
     }
   }
 
-  function renderGraph(data) {
-    const nodes = new Map();
-    const edges = [];
+  function renderGraph(data: GraphRow[]): void {
+    const nodes = new Map<string, ElementDefinition>();
+    const edges: ElementDefinition[] = [];
 
     for (const row of data) {
       if (row.n) {
