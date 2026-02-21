@@ -4,14 +4,22 @@ CREATE (:Category {name: 'Sutta'});
 CREATE (:Category {name: 'Abhidhamma'}); 
 CREATE (:Category {name: 'Vinaya'}); 
 
-// Create Sutta children 
+// Create Sutta children with indempotent merge
 
-MATCH (s:Sutta:Category {name: 'Sutta'}) 
-CREATE (s)-[:HAS_CHILD]->(:Category {name: 'Dīghanikāya'}), 
-(s)-[:HAS_CHILD]->(:Category {name: 'Majjhimanikaya'}), 
-(s)-[:HAS_CHILD]->(:Category {name: 'Anguttaranikaya'}), 
-(s)-[:HAS_CHILD]->(:Category {name: 'Samyuttanikaya'}),
-(s)-[:HAS_CHILD]->(:Category {name: 'Khuddakanikaya'}); 
+MATCH (s:Sutta:Category {name: 'Sutta'})
+
+MERGE (d:Category {name: 'Dīghanikāya'})
+MERGE (m:Category {name: 'Majjhimanikaya'})
+MERGE (a:Category {name: 'Anguttaranikaya'})
+MERGE (sy:Category {name: 'Samyuttanikaya'})
+MERGE (k:Category {name: 'Khuddakanikaya'})
+
+MERGE (s)-[:HAS_CHILD]->(d)
+MERGE (s)-[:HAS_CHILD]->(m)
+MERGE (s)-[:HAS_CHILD]->(a)
+MERGE (s)-[:HAS_CHILD]->(sy)
+MERGE (s)-[:HAS_CHILD]->(k);
+
 
 
 // Create Abhidhamma children 
