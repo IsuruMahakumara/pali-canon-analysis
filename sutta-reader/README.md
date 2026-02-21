@@ -6,7 +6,7 @@ FastAPI app for reading Pali Canon suttas.
 
 ```bash
 uv venv
-source .venv/bin/activate
+
 uv pip install -e ../
 uv pip install -e .
 ```
@@ -14,7 +14,8 @@ uv pip install -e .
 ## Run
 
 ```bash
-cd sutta-reader
+cd sutta-reader &&
+source .venv/bin/activate &&
 uv run uvicorn main:app --reload
 ```
 

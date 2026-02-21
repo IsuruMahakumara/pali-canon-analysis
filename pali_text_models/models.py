@@ -1,5 +1,7 @@
 """Pali Text Models - SQLModel schemas for Pali Canon text units (suttas, verses, etc.)"""
 import os
+from sqlalchemy import Column
+from sqlalchemy.dialects.postgresql import JSONB
 from sqlmodel import Field, SQLModel, create_engine, Session
 import psycopg
 
@@ -32,6 +34,18 @@ class AbhidhammaTextModel(SQLModel, table=True):
     index: str = Field(primary_key=True)
     text: str | None = None
     hela_text: str | None = None
+
+
+class DictionaryTextModel(SQLModel, table=True):
+    """A single verse/segment from the Dictionary"""
+    __tablename__ = "pli2en_dpd_dict"
+    __table_args__ = {"extend_existing": True}
+    
+    entry: str = Field(primary_key=True)
+    definitions: dict | None = Field(default=None, sa_column=Column(JSONB, nullable=True))
+
+
+
 
 
 # Engine factory - creates engine with connection pooling

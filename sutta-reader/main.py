@@ -11,7 +11,7 @@ from sqlmodel import Session, select, func, col
 from natsort import natsorted
 from strawberry.fastapi import GraphQLRouter
 from init_db import init_db
-from pali_text_models import SuttaTextModel, get_engine
+from pali_text_models import SuttaTextModel, DictionaryTextModel, get_engine
 from graph_schema import schema
 
 # DB
@@ -71,6 +71,17 @@ def get_sutta(sutta_id: str):
         stmt = select(SuttaTextModel).where(SuttaTextModel.sutta_id == sutta_id)
         result = session.exec(stmt)
         return natsorted(result.all(), key=lambda x: x.index)
+
+
+@app.get("/api/dictionary/{entry}")
+def get_dictionary(entry: str):
+    """Get the definition for a dictionary entry"""
+    with Session(engine) as session:
+        stmt = select(DictionaryTextModel).where(DictionaryTextModel.entry == entry)
+        result = session.exec(stmt)
+        return result.first()
+
+
 
 
 # Mount static files only if build exists (run `npm run build` in svelte-app first)
