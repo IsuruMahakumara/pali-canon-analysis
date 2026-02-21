@@ -4,6 +4,7 @@
 /sujato/
 /sutta-reader/.venv/*
 /sutta-reader/static-svelte/
+/dictionaries/
 
 # Data files
 *.csv
