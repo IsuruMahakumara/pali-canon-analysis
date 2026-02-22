@@ -18,7 +18,7 @@ from graph_schema import schema
 engine = get_engine()
 
 # Static files directory (Svelte build output)
-STATIC_DIR = Path(__file__).parent / "static-svelte"
+STATIC_DIR = Path(__file__).parent / "svelte-app/static-svelte"
 
 
 @asynccontextmanager

@@ -11,7 +11,7 @@ export default defineConfig({
     }
   },
   build: {
-    outDir: '../static-svelte',
+    outDir: 'static-svelte',
     emptyOutDir: true
   }
 });
