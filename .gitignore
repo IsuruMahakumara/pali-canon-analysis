@@ -3,8 +3,10 @@
 /pali_cannon/
 /sujato/
 /sutta-reader/.venv/*
-/sutta-reader/static-svelte/
+/sutta-reader/svelte-app/static-svelte/
 /dictionaries/
+/data/
+/NOTES/
 
 # Data files
 *.csv
