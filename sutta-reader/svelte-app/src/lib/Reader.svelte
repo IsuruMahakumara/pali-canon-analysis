@@ -1,5 +1,15 @@
 <script lang="ts">
-  import { state, getSuttaName } from './state.svelte';
+  import { state, api, getSuttaName } from './state.svelte';
+
+  function onWordDblClick(word: string): void {
+    api.lookupWord(word);
+  }
+
+  function onEmptyDblClick(e: MouseEvent): void {
+    const el = e.target instanceof Element ? e.target : (e.target as Node).parentElement;
+    if (el?.closest('.word')) return;
+    state.dictionaryEntry = null;
+  }
 </script>
 
 <div class="reader">
@@ -25,12 +35,20 @@
       </div>
     </header>
     
-    <div class="verses" class:hela-script={state.showHela}>
+    <div class="verses" class:hela-script={state.showHela} ondblclick={onEmptyDblClick}>
       {#each state.verses as v (v.index)}
         {@const num = v.index.split(':')[1]}
         {#if !num.startsWith('0.')}
+          {@const raw = state.showHela ? (v.hela_text || v.text || '') : (v.text || '')}
           <p class="verse">
-            <span class="verse-ref">{num}</span>{state.showHela ? (v.hela_text || v.text) : v.text}
+            <span class="verse-ref">{num}</span>
+            {#each raw.split(/(\s+)/) as part}
+              {#if /^\s+$/.test(part)}
+                {part}
+              {:else}
+                <span class="word" ondblclick={() => onWordDblClick(part)} role="button" tabindex="-1">{part}</span>
+              {/if}
+            {/each}
           </p>
         {/if}
       {/each}

@@ -9,6 +9,11 @@ export interface Verse {
   hela_text?: string;
 }
 
+export interface DictionaryEntry {
+  entry: string;
+  definitions: Record<string, unknown> | null;
+}
+
 export interface AppState {
   nikayas: Nikaya[];
   suttasByNikaya: Record<string, string[]>;
@@ -18,6 +23,7 @@ export interface AppState {
   loading: boolean;
   navOpen: boolean;
   showHela: boolean;
+  dictionaryEntry: DictionaryEntry | null;
 }
 
 export const NIKAYA_NAMES: Record<string, string> = {
@@ -36,7 +42,8 @@ export const state: AppState = $state({
   verses: [],
   loading: false,
   navOpen: true,
-  showHela: false
+  showHela: false,
+  dictionaryEntry: null
 });
 
 export const api = {
@@ -47,10 +54,16 @@ export const api = {
   },
 
   async toggleNikaya(id: string): Promise<void> {
-    state.expanded[id] = !state.expanded[id];
-    if (state.expanded[id] && !state.suttasByNikaya[id]) {
-      const res = await fetch(`/api/suttas/${id}`);
-      state.suttasByNikaya[id] = await res.json();
+    const wasExpanded = state.expanded[id];
+    for (const k of state.nikayas) {
+      state.expanded[k.id] = false;
+    }
+    if (!wasExpanded) {
+      state.expanded[id] = true;
+      if (!state.suttasByNikaya[id]) {
+        const res = await fetch(`/api/suttas/${id}`);
+        state.suttasByNikaya[id] = await res.json();
+      }
     }
   },
 
@@ -67,6 +80,14 @@ export const api = {
   selectSutta(id: string): void {
     history.pushState(null, '', `#${id}`);
     this.loadSutta(id);
+  },
+
+  async lookupWord(word: string): Promise<void> {
+    const entry = word.trim().replace(/[.,;:!?()[\]'"–—]/g, '');
+    if (!entry) return;
+    const res = await fetch(`/api/dictionary/${encodeURIComponent(entry)}`);
+    const data = await res.json();
+    if (data != null) state.dictionaryEntry = data;
   }
 };
 

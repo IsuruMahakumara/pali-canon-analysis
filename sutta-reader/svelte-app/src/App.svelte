@@ -2,6 +2,7 @@
   import { onMount } from 'svelte';
   import Nav from './lib/Nav.svelte';
   import Reader from './lib/Reader.svelte';
+  import DictionaryPane from './lib/DictionaryPane.svelte';
   import GraphViewer from './lib/GraphViewer.svelte';
   import { state as appState, api } from './lib/state.svelte';
 
@@ -42,6 +43,8 @@
   <main class:expanded={!appState.navOpen} class:dimmed={innerWidth < 800 && appState.navOpen}>
     <Reader />
   </main>
+
+  <DictionaryPane />
 {/if}
 
 <style>
