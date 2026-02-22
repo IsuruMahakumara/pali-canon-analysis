@@ -2,8 +2,8 @@
 /pali_hela_script/
 /pali_cannon/
 /sujato/
-/sutta-reader/.venv/*
-/sutta-reader/svelte-app/static-svelte/
+/pali-canon-reader/.venv/*
+/pali-canon-reader/svelte-app/static-svelte/
 /dictionaries/
 /data/
 /NOTES/
