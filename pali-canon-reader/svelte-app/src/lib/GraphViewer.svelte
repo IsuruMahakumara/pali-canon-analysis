@@ -1,117 +1,99 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import cytoscape, { type Core, type ElementDefinition } from 'cytoscape';
+  import dagre from 'cytoscape-dagre';
+  import { indexGraphStore } from './indexGraphStore';
 
-  interface GraphNode {
-    id: number;
-    label?: string;
-    properties?: { name?: string };
-  }
+  let container = $state<HTMLDivElement>();
+  let tooltip = $state<{ x: number; y: number; attrs: Record<string, string> } | null>(null);
+  let contextMenu = $state<{ x: number; y: number; label: string } | null>(null);
 
-  interface GraphRelationship {
-    id: number;
-    start_id: number;
-    end_id: number;
-    label?: string;
-  }
+  const ROOT_ID = 'Canon';
+  const LEVEL_COLORS: Record<number, string> = {
+    0: '#d69e2e',
+    1: '#3182ce',
+    2: '#319795',
+    3: '#38a169',
+    4: '#805ad5',
+  };
 
-  interface GraphRow {
-    n?: GraphNode;
-    m?: GraphNode;
-    r?: GraphRelationship;
-  }
-
-  interface GraphQLResponse {
-    data?: { cypher: GraphRow[] };
-    errors?: Array<{ message: string }>;
-  }
-
-  let container: HTMLDivElement;
   let cy: Core;
-  let query = $state('MATCH (n)-[r]->(m) RETURN n, r, m LIMIT 50');
-  let loading = $state(false);
-  let error = $state('');
+  let childrenMap = new Map<string, string[]>();
+  let expanded = new Set<string>();
 
-  const GRAPHQL_URL = '/graphql';
+  cytoscape.use(dagre);
 
-  async function runQuery(): Promise<void> {
-    loading = true;
-    error = '';
-    
-    try {
-      const gqlQuery = `
-        query($q: String!, $cols: [String!]) {
-          cypher(query: $q, columns: $cols)
-        }
-      `;
-      
-      const res = await fetch(GRAPHQL_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          query: gqlQuery,
-          variables: { q: query, cols: ['n', 'r', 'm'] }
-        })
-      });
-      
-      const json: GraphQLResponse = await res.json();
-      if (json.errors) {
-        error = json.errors[0].message;
-        return;
-      }
-      
-      if (json.data) {
-        renderGraph(json.data.cypher);
-      }
-    } catch (e) {
-      error = e instanceof Error ? e.message : 'Unknown error';
-    } finally {
-      loading = false;
-    }
+  function copyLabel(label: string): void {
+    navigator.clipboard.writeText(label);
+    contextMenu = null;
   }
 
-  function renderGraph(data: GraphRow[]): void {
-    const nodes = new Map<string, ElementDefinition>();
-    const edges: ElementDefinition[] = [];
+  function dagreOpts() {
+    return {
+      name: 'dagre',
+      rankDir: 'TB',
+      nodeSep: 40,
+      rankSep: 60,
+      animate: true,
+      animationDuration: 300,
+      fit: true,
+      padding: 30,
+    };
+  }
 
-    for (const row of data) {
-      if (row.n) {
-        const id = String(row.n.id);
-        nodes.set(id, {
-          data: { 
-            id, 
-            label: row.n.properties?.name || row.n.label || id 
-          }
-        });
-      }
-      if (row.m) {
-        const id = String(row.m.id);
-        nodes.set(id, {
-          data: { 
-            id, 
-            label: row.m.properties?.name || row.m.label || id 
-          }
-        });
-      }
-      if (row.r) {
-        edges.push({
-          data: {
-            id: String(row.r.id),
-            source: String(row.r.start_id),
-            target: String(row.r.end_id),
-            label: row.r.label || ''
-          }
-        });
+  function visibleIds(): Set<string> {
+    const vis = new Set<string>();
+    const queue = [ROOT_ID];
+    while (queue.length) {
+      const id = queue.shift()!;
+      if (vis.has(id)) continue;
+      vis.add(id);
+      if (expanded.has(id)) {
+        for (const c of childrenMap.get(id) || []) queue.push(c);
       }
     }
+    return vis;
+  }
 
-    cy.elements().remove();
-    cy.add([...nodes.values(), ...edges]);
-    cy.layout({ name: 'cose', animate: false }).run();
-    cy.fit();
+  function refresh() {
+    const vis = visibleIds();
+    cy.batch(() => {
+      cy.nodes().forEach(n => {
+        const id = n.id();
+        if (vis.has(id)) {
+          (n as any).show();
+          const hasKids = (childrenMap.get(id)?.length ?? 0) > 0;
+          n.data('label', hasKids
+            ? `${id} ${expanded.has(id) ? '▾' : '▸'}`
+            : id
+          );
+        } else {
+          (n as any).hide();
+        }
+      });
+      cy.edges().forEach(e => {
+        if (vis.has(e.data('source')) && vis.has(e.data('target')))
+          (e as any).show();
+        else
+          (e as any).hide();
+      });
+    });
+    cy.elements(':visible').layout(dagreOpts()).run();
+  }
+
+  function collapseSubtree(nodeId: string) {
+    expanded.delete(nodeId);
+    for (const c of childrenMap.get(nodeId) || []) collapseSubtree(c);
+  }
+
+  function handleCollapseAll() {
+    expanded = new Set([ROOT_ID]);
+    refresh();
   }
 
   onMount(() => {
+    if (!container) return;
+
     cy = cytoscape({
       container,
       style: [
@@ -127,8 +109,20 @@
             'width': 'label',
             'height': 'label',
             'padding': '8px',
-            'shape': 'roundrectangle'
+            'shape': 'roundrectangle',
           }
+        },
+        ...Object.entries(LEVEL_COLORS).map(([lv, bg]) => ({
+          selector: `node[level = ${lv}]`,
+          style: { 'background-color': bg }
+        })),
+        {
+          selector: 'node[level = 0]',
+          style: { 'font-size': '14px', 'font-weight': 'bold' } as any
+        },
+        {
+          selector: 'node[level = 1]',
+          style: { 'font-size': '12px', 'font-weight': 'bold' } as any
         },
         {
           selector: 'edge',
@@ -138,9 +132,6 @@
             'target-arrow-color': '#718096',
             'target-arrow-shape': 'triangle',
             'curve-style': 'bezier',
-            'label': 'data(label)',
-            'font-size': '8px',
-            'color': '#a0aec0'
           }
         },
         {
@@ -151,31 +142,107 @@
           }
         }
       ],
-      layout: { name: 'grid' }
+      layout: { name: 'preset' },
+      wheelSensitivity: 0.3,
     });
-    
-    runQuery();
+
+    const unsub = indexGraphStore.subscribe(s => {
+      if (!cy || s.nodes.length === 0) return;
+
+      childrenMap = new Map();
+      for (const e of s.edges) {
+        const src = e.data.source as string;
+        if (!childrenMap.has(src)) childrenMap.set(src, []);
+        childrenMap.get(src)!.push(e.data.target as string);
+      }
+
+      const elems: ElementDefinition[] = [
+        ...s.nodes.map(n => ({
+          data: { ...n.data, level: parseInt(n.data.attrs?.level ?? '0') }
+        })),
+        ...s.edges,
+      ];
+
+      cy.batch(() => {
+        cy.elements().remove();
+        cy.add(elems);
+      });
+
+      expanded = new Set([ROOT_ID]);
+      refresh();
+    });
+
+    cy.on('tap', 'node', evt => {
+      contextMenu = null;
+      const id = evt.target.id();
+      if (!childrenMap.get(id)?.length) return;
+      if (expanded.has(id)) collapseSubtree(id);
+      else expanded.add(id);
+      refresh();
+    });
+
+    cy.on('tap', evt => {
+      if (evt.target === cy) contextMenu = null;
+    });
+
+    cy.on('mouseover', 'node', evt => {
+      const attrs = evt.target.data('attrs');
+      if (attrs) tooltip = { x: evt.originalEvent.clientX, y: evt.originalEvent.clientY, attrs };
+    });
+
+    cy.on('mouseout', 'node', () => (tooltip = null));
+
+    cy.on('cxttap', 'node', e => {
+      contextMenu = { x: e.originalEvent.clientX, y: e.originalEvent.clientY, label: e.target.id() };
+    });
+
+    indexGraphStore.load('/Canon.graphml');
+
+    return () => { unsub(); cy.destroy(); };
   });
 </script>
 
 <div class="graph-page">
   <header class="graph-header">
     <a href="#reader" class="back-link">← Reader</a>
-    <h1>Graph Explorer</h1>
+    <h1>Pali Canon Index</h1>
   </header>
   
-  <div class="query-bar">
-    <textarea bind:value={query} rows="2" placeholder="Cypher query..."></textarea>
-    <button onclick={runQuery} disabled={loading}>
-      {loading ? '...' : 'Run'}
+  <div class="graph-toolbar">
+    <button onclick={() => indexGraphStore.load('/Canon.graphml')} disabled={$indexGraphStore.loading}>
+      {$indexGraphStore.loading ? 'Loading...' : 'Reload'}
     </button>
+    <button onclick={handleCollapseAll}>Collapse All</button>
   </div>
   
-  {#if error}
-    <div class="error">{error}</div>
+  {#if $indexGraphStore.error}
+    <div class="error">{$indexGraphStore.error}</div>
   {/if}
   
-  <div class="graph-container" bind:this={container}></div>
+  <div class="graph-container" bind:this={container}>
+    {#if contextMenu}
+      <!-- svelte-ignore a11y_click_events_have_key_events a11y_no_static_element_interactions -->
+      <div
+        class="context-menu"
+        role="menu"
+        tabindex="-1"
+        style="left: {contextMenu.x}px; top: {contextMenu.y}px"
+        onclick={(e) => e.stopPropagation()}
+      >
+        <button type="button" role="menuitem" onclick={() => copyLabel(contextMenu!.label)}>Copy name</button>
+      </div>
+    {/if}
+    {#if tooltip}
+      <div
+        class="tooltip"
+        style="left: {tooltip.x + 12}px; top: {tooltip.y + 12}px"
+      >
+        {#each Object.entries(tooltip.attrs) as [key, val]}
+          <div class="tooltip-row"><span class="tooltip-key">{key}:</span> {val}</div>
+        {/each}
+      </div>
+    {/if}
+  </div>
 </div>
 
 <style>
@@ -212,26 +279,14 @@
     text-decoration: underline;
   }
   
-  .query-bar {
+  .graph-toolbar {
     display: flex;
     gap: 0.5rem;
     padding: 0.75rem 1rem;
     background: #2d3748;
   }
   
-  .query-bar textarea {
-    flex: 1;
-    padding: 0.5rem;
-    background: #1a202c;
-    border: 1px solid #4a5568;
-    border-radius: 4px;
-    color: #e2e8f0;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.85rem;
-    resize: vertical;
-  }
-  
-  .query-bar button {
+  .graph-toolbar button {
     padding: 0.5rem 1.5rem;
     background: #4299e1;
     border: none;
@@ -241,11 +296,11 @@
     cursor: pointer;
   }
   
-  .query-bar button:hover:not(:disabled) {
+  .graph-toolbar button:hover:not(:disabled) {
     background: #3182ce;
   }
   
-  .query-bar button:disabled {
+  .graph-toolbar button:disabled {
     opacity: 0.6;
     cursor: not-allowed;
   }
@@ -260,6 +315,55 @@
   .graph-container {
     flex: 1;
     min-height: 0;
+    position: relative;
+  }
+
+  .tooltip {
+    position: fixed;
+    background: #2d3748;
+    border: 1px solid #4a5568;
+    border-radius: 4px;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+    color: #e2e8f0;
+    pointer-events: none;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  .tooltip-row {
+    white-space: nowrap;
+  }
+
+  .tooltip-key {
+    color: #63b3ed;
+    font-weight: 500;
+    margin-right: 0.25rem;
+  }
+
+  .context-menu {
+    position: fixed;
+    background: #2d3748;
+    border: 1px solid #4a5568;
+    border-radius: 4px;
+    padding: 0.25rem 0;
+    z-index: 1001;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  .context-menu button {
+    display: block;
+    width: 100%;
+    padding: 0.4rem 1rem;
+    background: none;
+    border: none;
+    color: #e2e8f0;
+    font-size: 0.9rem;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .context-menu button:hover {
+    background: #4a5568;
   }
 </style>
-
