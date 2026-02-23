@@ -6,7 +6,7 @@
 
   let container = $state<HTMLDivElement>();
   let tooltip = $state<{ x: number; y: number; attrs: Record<string, string> } | null>(null);
-  let contextMenu = $state<{ x: number; y: number; label: string } | null>(null);
+  let contextMenu = $state<{ x: number; y: number; label: string; suttaId?: string } | null>(null);
 
   const ROOT_ID = 'Canon';
   const LEVEL_COLORS: Record<number, string> = {
@@ -193,7 +193,9 @@
     cy.on('mouseout', 'node', () => (tooltip = null));
 
     cy.on('cxttap', 'node', e => {
-      contextMenu = { x: e.originalEvent.clientX, y: e.originalEvent.clientY, label: e.target.id() };
+      const attrs = e.target.data('attrs') || {};
+      const suttaId = attrs.reading_unit === 'True' ? attrs.sutta_id : undefined;
+      contextMenu = { x: e.originalEvent.clientX, y: e.originalEvent.clientY, label: e.target.id(), suttaId };
     });
 
     indexGraphStore.load('/Canon.graphml');
@@ -219,30 +221,33 @@
     <div class="error">{$indexGraphStore.error}</div>
   {/if}
   
-  <div class="graph-container" bind:this={container}>
-    {#if contextMenu}
-      <!-- svelte-ignore a11y_click_events_have_key_events a11y_no_static_element_interactions -->
-      <div
-        class="context-menu"
-        role="menu"
-        tabindex="-1"
-        style="left: {contextMenu.x}px; top: {contextMenu.y}px"
-        onclick={(e) => e.stopPropagation()}
-      >
-        <button type="button" role="menuitem" onclick={() => copyLabel(contextMenu!.label)}>Copy name</button>
-      </div>
-    {/if}
-    {#if tooltip}
-      <div
-        class="tooltip"
-        style="left: {tooltip.x + 12}px; top: {tooltip.y + 12}px"
-      >
-        {#each Object.entries(tooltip.attrs) as [key, val]}
-          <div class="tooltip-row"><span class="tooltip-key">{key}:</span> {val}</div>
-        {/each}
-      </div>
-    {/if}
-  </div>
+  <div class="graph-container" bind:this={container}></div>
+
+  {#if contextMenu}
+    <!-- svelte-ignore a11y_click_events_have_key_events a11y_no_static_element_interactions -->
+    <div
+      class="context-menu"
+      role="menu"
+      tabindex="-1"
+      style="left: {contextMenu.x}px; top: {contextMenu.y}px"
+    >
+      <button type="button" role="menuitem" onclick={() => copyLabel(contextMenu!.label)}>Copy name</button>
+      {#if contextMenu.suttaId}
+        <button type="button" role="menuitem" onclick={() => { const id = contextMenu!.suttaId; contextMenu = null; window.open(location.origin + location.pathname + '#' + id, '_blank'); }}>Read</button>
+      {/if}
+    </div>
+  {/if}
+
+  {#if tooltip}
+    <div
+      class="tooltip"
+      style="left: {tooltip.x + 12}px; top: {tooltip.y + 12}px"
+    >
+      {#each Object.entries(tooltip.attrs) as [key, val]}
+        <div class="tooltip-row"><span class="tooltip-key">{key}:</span> {val}</div>
+      {/each}
+    </div>
+  {/if}
 </div>
 
 <style>
