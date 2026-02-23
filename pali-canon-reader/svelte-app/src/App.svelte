@@ -4,6 +4,7 @@
   import Reader from './lib/Reader.svelte';
   import DictionaryPane from './lib/DictionaryPane.svelte';
   import GraphViewer from './lib/GraphViewer.svelte';
+  //import GraphViewer from './lib/G6GraphViewer.svelte';
   import { state as appState, api } from './lib/state.svelte';
 
   let currentPage = $state<'reader' | 'graph'>('reader');
