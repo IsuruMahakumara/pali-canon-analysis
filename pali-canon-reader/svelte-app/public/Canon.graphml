@@ -20564,6 +20564,182 @@
   <data key="d5">mn152</data>
   <data key="d4">True</data>
 </node>
+<node id="vb1:Khandhavibhaṅga">
+  <data key="d6">Khandhavibhaṅga</data>
+  <data key="d0">3</data>
+  <data key="d1">Vibhanga</data>
+  <data key="d5">vb1</data>
+  <data key="d4">True</data>
+</node>
+<node id="vb2:Āyatanavibhaṅga">
+  <data key="d6">Āyatanavibhaṅga</data>
+  <data key="d0">3</data>
+  <data key="d1">Vibhanga</data>
+  <data key="d5">vb2</data>
+  <data key="d4">True</data>
+</node>
+<node id="vb3:Dhātuvibhaṅga">
+  <data key="d6">Dhātuvibhaṅga</data>
+  <data key="d0">3</data>
+  <data key="d1">Vibhanga</data>
+  <data key="d5">vb3</data>
+  <data key="d4">True</data>
+</node>
+<node id="vb4:Saccavibhaṅga">
+  <data key="d6">Saccavibhaṅga</data>
+  <data key="d0">3</data>
+  <data key="d1">Vibhanga</data>
+  <data key="d5">vb4</data>
+  <data key="d4">True</data>
+</node>
+<node id="vb5:Indriyavibhaṅga">
+  <data key="d6">Indriyavibhaṅga</data>
+  <data key="d0">3</data>
+  <data key="d1">Vibhanga</data>
+  <data key="d5">vb5</data>
+  <data key="d4">True</data>
+</node>
+<node id="vb6:Paṭiccasamuppādavibhaṅga">
+  <data key="d6">Paṭiccasamuppādavibhaṅga</data>
+  <data key="d0">3</data>
+  <data key="d1">Vibhanga</data>
+  <data key="d5">vb6</data>
+  <data key="d4">True</data>
+</node>
+<node id="vb7:Satipaṭṭhānavibhaṅga">
+  <data key="d6">Satipaṭṭhānavibhaṅga</data>
+  <data key="d0">3</data>
+  <data key="d1">Vibhanga</data>
+  <data key="d5">vb7</data>
+  <data key="d4">True</data>
+</node>
+<node id="vb8:Sammappadhānavibhaṅga">
+  <data key="d6">Sammappadhānavibhaṅga</data>
+  <data key="d0">3</data>
+  <data key="d1">Vibhanga</data>
+  <data key="d5">vb8</data>
+  <data key="d4">True</data>
+</node>
+<node id="vb9:Iddhipādavibhaṅga">
+  <data key="d6">Iddhipādavibhaṅga</data>
+  <data key="d0">3</data>
+  <data key="d1">Vibhanga</data>
+  <data key="d5">vb9</data>
+  <data key="d4">True</data>
+</node>
+<node id="vb10:Bojjhaṅgavibhaṅga">
+  <data key="d6">Bojjhaṅgavibhaṅga</data>
+  <data key="d0">3</data>
+  <data key="d1">Vibhanga</data>
+  <data key="d5">vb10</data>
+  <data key="d4">True</data>
+</node>
+<node id="vb11:Maggaṅgavibhaṅga">
+  <data key="d6">Maggaṅgavibhaṅga</data>
+  <data key="d0">3</data>
+  <data key="d1">Vibhanga</data>
+  <data key="d5">vb11</data>
+  <data key="d4">True</data>
+</node>
+<node id="vb12:Jhānavibhaṅga">
+  <data key="d6">Jhānavibhaṅga</data>
+  <data key="d0">3</data>
+  <data key="d1">Vibhanga</data>
+  <data key="d5">vb12</data>
+  <data key="d4">True</data>
+</node>
+<node id="vb13:Appamaññāvibhaṅga">
+  <data key="d6">Appamaññāvibhaṅga</data>
+  <data key="d0">3</data>
+  <data key="d1">Vibhanga</data>
+  <data key="d5">vb13</data>
+  <data key="d4">True</data>
+</node>
+<node id="vb14:Sikkhāpadavibhaṅga">
+  <data key="d6">Sikkhāpadavibhaṅga</data>
+  <data key="d0">3</data>
+  <data key="d1">Vibhanga</data>
+  <data key="d5">vb14</data>
+  <data key="d4">True</data>
+</node>
+<node id="vb15:Paṭisambhidāvibhaṅga">
+  <data key="d6">Paṭisambhidāvibhaṅga</data>
+  <data key="d0">3</data>
+  <data key="d1">Vibhanga</data>
+  <data key="d5">vb15</data>
+  <data key="d4">True</data>
+</node>
+<node id="vb16:Ñāṇavibhaṅga">
+  <data key="d6">Ñāṇavibhaṅga</data>
+  <data key="d0">3</data>
+  <data key="d1">Vibhanga</data>
+  <data key="d5">vb16</data>
+  <data key="d4">True</data>
+</node>
+<node id="vb17:Khuddakavatthuvibhaṅga">
+  <data key="d6">Khuddakavatthuvibhaṅga</data>
+  <data key="d0">3</data>
+  <data key="d1">Vibhanga</data>
+  <data key="d5">vb17</data>
+  <data key="d4">True</data>
+</node>
+<node id="vb18:Dhammahadayavibhaṅga">
+  <data key="d6">Dhammahadayavibhaṅga</data>
+  <data key="d0">3</data>
+  <data key="d1">Vibhanga</data>
+  <data key="d5">vb18</data>
+  <data key="d4">True</data>
+</node>
+<node id="ya1.Mūlayamaka">
+  <data key="d6">Mūlayamaka</data>
+  <data key="d0">3</data>
+  <data key="d1">Yamaka</data>
+</node>
+<node id="ya2.Khandhayamaka">
+  <data key="d6">Khandhayamaka</data>
+  <data key="d0">3</data>
+  <data key="d1">Yamaka</data>
+</node>
+<node id="ya3.Āyatanayamaka">
+  <data key="d6">Āyatanayamaka</data>
+  <data key="d0">3</data>
+  <data key="d1">Yamaka</data>
+</node>
+<node id="ya4.Dhātuyamaka">
+  <data key="d6">Dhātuyamaka</data>
+  <data key="d0">3</data>
+  <data key="d1">Yamaka</data>
+</node>
+<node id="ya5.Saccayamaka">
+  <data key="d6">Saccayamaka</data>
+  <data key="d0">3</data>
+  <data key="d1">Yamaka</data>
+</node>
+<node id="ya6.Saṅkhārayamaka">
+  <data key="d6">Saṅkhārayamaka</data>
+  <data key="d0">3</data>
+  <data key="d1">Yamaka</data>
+</node>
+<node id="ya7.Anusayayamaka">
+  <data key="d6">Anusayayamaka</data>
+  <data key="d0">3</data>
+  <data key="d1">Yamaka</data>
+</node>
+<node id="ya8.Cittayamaka">
+  <data key="d6">Cittayamaka</data>
+  <data key="d0">3</data>
+  <data key="d1">Yamaka</data>
+</node>
+<node id="ya9.Dhammayamaka">
+  <data key="d6">Dhammayamaka</data>
+  <data key="d0">3</data>
+  <data key="d1">Yamaka</data>
+</node>
+<node id="ya10.Indriyayamaka">
+  <data key="d6">Indriyayamaka</data>
+  <data key="d0">3</data>
+  <data key="d1">Yamaka</data>
+</node>
 <edge source="Canon" target="Sutta"/>
 <edge source="Canon" target="Vinaya"/>
 <edge source="Canon" target="Abhidhamma"/>
@@ -20590,6 +20766,34 @@
 <edge source="Majjhimanikāya" target="mn:Mūlapaṇṇāsa"/>
 <edge source="Majjhimanikāya" target="mn:Majjhimapaṇṇāsa"/>
 <edge source="Majjhimanikāya" target="mn:Uparipaṇṇāsa"/>
+<edge source="Vibhanga" target="vb1:Khandhavibhaṅga"/>
+<edge source="Vibhanga" target="vb2:Āyatanavibhaṅga"/>
+<edge source="Vibhanga" target="vb3:Dhātuvibhaṅga"/>
+<edge source="Vibhanga" target="vb4:Saccavibhaṅga"/>
+<edge source="Vibhanga" target="vb5:Indriyavibhaṅga"/>
+<edge source="Vibhanga" target="vb6:Paṭiccasamuppādavibhaṅga"/>
+<edge source="Vibhanga" target="vb7:Satipaṭṭhānavibhaṅga"/>
+<edge source="Vibhanga" target="vb8:Sammappadhānavibhaṅga"/>
+<edge source="Vibhanga" target="vb9:Iddhipādavibhaṅga"/>
+<edge source="Vibhanga" target="vb10:Bojjhaṅgavibhaṅga"/>
+<edge source="Vibhanga" target="vb11:Maggaṅgavibhaṅga"/>
+<edge source="Vibhanga" target="vb12:Jhānavibhaṅga"/>
+<edge source="Vibhanga" target="vb13:Appamaññāvibhaṅga"/>
+<edge source="Vibhanga" target="vb14:Sikkhāpadavibhaṅga"/>
+<edge source="Vibhanga" target="vb15:Paṭisambhidāvibhaṅga"/>
+<edge source="Vibhanga" target="vb16:Ñāṇavibhaṅga"/>
+<edge source="Vibhanga" target="vb17:Khuddakavatthuvibhaṅga"/>
+<edge source="Vibhanga" target="vb18:Dhammahadayavibhaṅga"/>
+<edge source="Yamaka" target="ya1.Mūlayamaka"/>
+<edge source="Yamaka" target="ya2.Khandhayamaka"/>
+<edge source="Yamaka" target="ya3.Āyatanayamaka"/>
+<edge source="Yamaka" target="ya4.Dhātuyamaka"/>
+<edge source="Yamaka" target="ya5.Saccayamaka"/>
+<edge source="Yamaka" target="ya6.Saṅkhārayamaka"/>
+<edge source="Yamaka" target="ya7.Anusayayamaka"/>
+<edge source="Yamaka" target="ya8.Cittayamaka"/>
+<edge source="Yamaka" target="ya9.Dhammayamaka"/>
+<edge source="Yamaka" target="ya10.Indriyayamaka"/>
 <edge source="Sagāthāvaggasaṁyutta" target="sn1.Devatāsaṁyutta"/>
 <edge source="Sagāthāvaggasaṁyutta" target="sn2.Devaputtasaṁyutta"/>
 <edge source="Sagāthāvaggasaṁyutta" target="sn3.Kosalasaṁyutta"/>
