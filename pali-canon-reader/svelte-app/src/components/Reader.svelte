@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { state, api, getSuttaName } from './state.svelte';
+  import { state, api, getSuttaName } from '../store/state.svelte';
 
   function onWordDblClick(word: string): void {
     api.lookupWord(word);
