@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { Graph, treeToGraphData } from '@antv/g6';
-  import { indexGraphStore } from './indexGraphStore';
+  import { indexGraphStore } from '../core/indexGraphStore';
 
   let container = $state<HTMLDivElement>();
   let graph: Graph | null = null;

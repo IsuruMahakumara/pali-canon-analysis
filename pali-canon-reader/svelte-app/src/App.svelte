@@ -1,11 +1,11 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import Nav from './lib/Nav.svelte';
-  import Reader from './lib/Reader.svelte';
-  import DictionaryPane from './lib/DictionaryPane.svelte';
-  import GraphViewer from './lib/GraphViewer.svelte';
+  import Nav from './components/Nav.svelte';
+  import Reader from './components/Reader.svelte';
+  import DictionaryPane from './components/DictionaryPane.svelte';
+  import GraphViewer from './components/GraphViewer.svelte';
   //import GraphViewer from './lib/G6GraphViewer.svelte';
-  import { state as appState, api } from './lib/state.svelte';
+  import { state as appState, api } from './store/state.svelte';
 
   let currentPage = $state<'reader' | 'graph'>('reader');
   let innerWidth = $state(window.innerWidth);

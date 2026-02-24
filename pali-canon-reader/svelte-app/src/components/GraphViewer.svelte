@@ -2,7 +2,7 @@
   import { onMount } from 'svelte';
   import cytoscape, { type Core, type ElementDefinition } from 'cytoscape';
   import dagre from 'cytoscape-dagre';
-  import { indexGraphStore } from './indexGraphStore';
+  import { indexGraphStore } from '../core/indexGraphStore';
 
   let container = $state<HTMLDivElement>();
   let tooltip = $state<{ x: number; y: number; attrs: Record<string, string> } | null>(null);

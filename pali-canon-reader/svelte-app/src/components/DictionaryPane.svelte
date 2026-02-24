@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { state } from './state.svelte';
+  import { state } from '../store/state.svelte';
 
   function close(): void {
     state.dictionaryEntry = null;
