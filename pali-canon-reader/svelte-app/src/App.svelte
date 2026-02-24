@@ -22,7 +22,7 @@
   }
   
   onMount(() => {
-    api.loadNikayas();
+    api.init('/Canon.graphml');
     updateRoute();
     window.addEventListener('hashchange', updateRoute);
   });
@@ -39,7 +39,10 @@
 
   <a href="#graph" class="graph-link" title="Graph Explorer">⬡</a>
 
-  <Nav />
+  <nav class:collapsed={!appState.navOpen}>
+    <div class="nav-header">Pāli Canon Index</div>
+    <Nav node={appState.navTree} />
+  </nav>
 
   <main class:expanded={!appState.navOpen} class:dimmed={innerWidth < 800 && appState.navOpen}>
     <Reader />
