@@ -8,10 +8,10 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from sqlmodel import Session, select, func, col
-from natsort import natsorted
+from natsort import natsorted, index_natsorted
 from strawberry.fastapi import GraphQLRouter
 from init_db import init_db
-from pali_text_models import SuttaTextModel, DictionaryTextModel, get_engine
+from pali_text_models import DictionaryTextModel, ReadingUnitModel, get_engine
 from graph_schema import schema
 
 # DB
@@ -29,57 +29,30 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 
-# GraphQL endpoint for graph queries
-graphql_app = GraphQLRouter(schema)
-app.include_router(graphql_app, prefix="/graphql")
 
-
-@app.get("/api/nikayas")
-def list_nikayas():
-    """List all nikayas with their sutta counts"""
+@app.get("/api/reading_unit/{reading_unit_id}")
+def get_reading_unit(reading_unit_id: str):
+    """Get the text for a reading unit"""
     with Session(engine) as session:
-        stmt = (
-            select(
-                SuttaTextModel.nikaya,
-                func.count(func.distinct(SuttaTextModel.sutta_id)).label("count")
-            )
-            .where(SuttaTextModel.sutta_id != "")
-            .group_by(SuttaTextModel.nikaya)
-            .order_by(SuttaTextModel.nikaya)
-        )
-        result = session.exec(stmt)
-        return [{"id": nikaya, "count": count} for nikaya, count in result]
-
-
-@app.get("/api/suttas/{nikaya}")
-def list_suttas_by_nikaya(nikaya: str):
-    """List all sutta_ids for a specific nikaya"""
-    with Session(engine) as session:
-        stmt = (
-            select(SuttaTextModel.sutta_id)
-            .where(SuttaTextModel.nikaya == nikaya, SuttaTextModel.sutta_id != "")
-            .distinct()
-        )
-        result = session.exec(stmt)
-        return natsorted(result.all())
-
-
-@app.get("/api/sutta/{sutta_id}")
-def get_sutta(sutta_id: str):
-    """Get all verses for a sutta (pali + hela)"""
-    with Session(engine) as session:
-        stmt = select(SuttaTextModel).where(SuttaTextModel.sutta_id == sutta_id)
-        result = session.exec(stmt)
-        return natsorted(result.all(), key=lambda x: x.index)
+        stmt = select(ReadingUnitModel).where(ReadingUnitModel.reading_unit_id == reading_unit_id).order_by(ReadingUnitModel.index)
+        try:
+            rows = session.exec(stmt)
+            return natsorted(rows.all(), key=lambda x: x.index)
+        except Exception as e:
+            return {"error": str(e)}
 
 
 @app.get("/api/dictionary/{entry}")
 def get_dictionary(entry: str):
     """Get the definition for a dictionary entry"""
     with Session(engine) as session:
-        stmt = select(DictionaryTextModel).where(DictionaryTextModel.entry == entry)
-        result = session.exec(stmt)
-        return result.first()
+        stmt = select(DictionaryTextModel).where(DictionaryTextModel.entry == entry).o
+
+        try:
+            result = session.exec(stmt)
+            return result.first()
+        except Exception as e:
+            return {"error": str(e)}
 
 
 
