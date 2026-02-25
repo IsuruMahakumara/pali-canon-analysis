@@ -50,21 +50,20 @@ export const api = {
     });
   },
   /**
-   * Loads a specific Sutta (reading unit) by ID
-   * Updates state.verses and state.current [cite: 1, 8]
+   * Loads a specific Reading Unit by ID
    */
-  async loadSutta(id: string): Promise<void> {
+  async loadReadingUnit(id: string): Promise<void> {
     if (!id || id === state.current) return;
     
     state.current = id;
     state.loading = true;
     
     try {
-      const res = await fetch(`/api/sutta/${id}`);
+      const res = await fetch(`/api/reading_unit/${id}`);
       if (!res.ok) throw new Error('Network response was not ok');
       state.verses = await res.json();
     } catch (error) {
-      console.error("Failed to load sutta:", error);
+      console.error("Failed to load reading unit:", error);
       state.verses = [];
     } finally {
       state.loading = false;
@@ -74,11 +73,11 @@ export const api = {
   },
 
   /**
-   * Updates URL hash and triggers the sutta load 
+   * Updates URL hash and triggers the reading unit load 
    */
-  selectSutta(id: string): void {
+  selectReadingUnit(id: string): void {
     history.pushState(null, '', `#${id}`);
-    this.loadSutta(id);
+    this.loadReadingUnit(id);
   },
 
   /**
@@ -99,7 +98,7 @@ export const api = {
   }
 };
 
-export function getSuttaName(hela: boolean = false): string {
+export function getUnitName(hela: boolean = false): string {
   const v = state.verses.find(v => v.index === `${state.current}:0.2`);
   const latin = v?.text?.trim() || state.current.toUpperCase();
   return hela ? (v?.hela_text?.trim() || latin) : latin;

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { state, api, getSuttaName } from '../store/state.svelte';
+  import { state, api, getUnitName } from '../store/state.svelte';
 
   function onWordDblClick(word: string): void {
     api.lookupWord(word);
@@ -21,11 +21,11 @@
   {:else if state.loading}
     <div class="loading"><span class="spinner"></span>Loading...</div>
   {:else}
-    <header class="sutta-header">
-      <div class="sutta-header-top">
+    <header class="reader-header">
+      <div class="reader-header-top">
         <div>
-          <div class="sutta-id">{state.current.toUpperCase()}</div>
-          <h1 class="sutta-title">{getSuttaName(state.showHela)}</h1>
+          <div class="reader-id">{state.current.toUpperCase()}</div>
+          <h1 class="reader-title">{getUnitName(state.showHela)}</h1>
         </div>
         <button 
           class="script-toggle" 
@@ -35,6 +35,7 @@
       </div>
     </header>
     
+    <!-- svelte-ignore a11y_no_static_element_interactions -->
     <div class="verses" class:hela-script={state.showHela} ondblclick={onEmptyDblClick}>
       {#each state.verses as v (v.index)}
         {@const num = v.index.split(':')[1]}

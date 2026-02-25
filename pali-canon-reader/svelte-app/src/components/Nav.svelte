@@ -11,7 +11,7 @@
 
 {#if node}
   {#if node.children.length}
-    <button class="branch" style:padding-left="{depth * 0.75 + 0.5}rem" onclick={() => open = !open}>
+    <button class="branch" style:--indent="{depth * 0.75 + 0.5}rem" onclick={() => open = !open}>
       <span class="arrow">{open ? '▾' : '▸'}</span> {node.label}
     </button>
     {#if open}
@@ -22,15 +22,15 @@
   {:else}
     <button
       class="leaf"
-      class:active={node.id === appState.current}
-      style:padding-left="{depth * 0.75 + 0.5}rem"
-      onclick={() => api.selectSutta(node!.id)}
+      class:active={node.reading_unit_id === appState.current}
+      style:--indent="{depth * 0.75 + 0.5}rem"
+      onclick={() => api.selectReadingUnit(node!.reading_unit_id)}
     >{node.label}</button>
   {/if}
 {/if}
 
 <style>
-  button { display: block; width: 100%; text-align: left; background: none; border: none; color: #cbd5e0; cursor: pointer; padding: 0.3rem 0.5rem; font-size: 0.85rem; }
+  button { display: block; width: 100%; text-align: left; background: none; border: none; color: #cbd5e0; cursor: pointer; padding: 0.3rem 0.5rem; font-size: 0.85rem; padding-left: var(--indent, 0.5rem); }
   .branch { font-weight: 600; color: #e2e8f0; }
   .branch:hover { background: #2d3748; }
   .leaf:hover { background: #2d3748; }

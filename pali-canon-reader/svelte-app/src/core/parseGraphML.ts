@@ -45,7 +45,7 @@ export interface TreeNode {
   id: string;
   label: string;
   children: TreeNode[];
-  data: any; // original attributes
+  reading_unit_id: string;
 }
 
 export function transformToHierarchy(nodes: any[], edges: any[], rootId: string): TreeNode | null {
@@ -57,7 +57,7 @@ export function transformToHierarchy(nodes: any[], edges: any[], rootId: string)
       id: n.data.id,
       label: n.data.label || n.data.id,
       children: [],
-      data: n.data.attrs || {}
+      reading_unit_id: n.data.attrs.reading_unit_id || 'Not A Reading Unit'
     });
   });
 

@@ -16,8 +16,8 @@
       currentPage = 'graph';
     } else {
       currentPage = 'reader';
-      const suttaId = hash.replace('#reader', '').replace('#', '');
-      if (suttaId) api.loadSutta(suttaId);
+      const readingUnitId = hash.replace('#reader', '').replace('#', '');
+      if (readingUnitId) api.loadSutta(readingUnitId);
     }
   }
   

@@ -6,7 +6,7 @@
 
   let container = $state<HTMLDivElement>();
   let tooltip = $state<{ x: number; y: number; attrs: Record<string, string> } | null>(null);
-  let contextMenu = $state<{ x: number; y: number; label: string; suttaId?: string } | null>(null);
+  let contextMenu = $state<{ x: number; y: number; label: string; readingUnitId?: string } | null>(null);
 
   const ROOT_ID = 'Canon';
   const LEVEL_COLORS: Record<number, string> = {
@@ -194,8 +194,8 @@
 
     cy.on('cxttap', 'node', e => {
       const attrs = e.target.data('attrs') || {};
-      const suttaId = attrs.reading_unit === 'True' ? attrs.sutta_id : undefined;
-      contextMenu = { x: e.originalEvent.clientX, y: e.originalEvent.clientY, label: e.target.id(), suttaId };
+      const readingUnitId = attrs.reading_unit === 'True' ? attrs.sutta_id : undefined;
+      contextMenu = { x: e.originalEvent.clientX, y: e.originalEvent.clientY, label: e.target.id(), readingUnitId };
     });
 
     indexGraphStore.load('/Canon.graphml');
@@ -232,8 +232,8 @@
       style="left: {contextMenu.x}px; top: {contextMenu.y}px"
     >
       <button type="button" role="menuitem" onclick={() => copyLabel(contextMenu!.label)}>Copy name</button>
-      {#if contextMenu.suttaId}
-        <button type="button" role="menuitem" onclick={() => { const id = contextMenu!.suttaId; contextMenu = null; window.open(location.origin + location.pathname + '#' + id, '_blank'); }}>Read</button>
+      {#if contextMenu.readingUnitId}
+        <button type="button" role="menuitem" onclick={() => { const id = contextMenu!.readingUnitId; contextMenu = null; window.open(location.origin + location.pathname + '#' + id, '_blank'); }}>Read</button>
       {/if}
     </div>
   {/if}
