@@ -4,15 +4,11 @@ from pathlib import Path
 # Add parent directory to path for pali_text_models package
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
-from sqlmodel import Session, select, func, col
-from natsort import natsorted, index_natsorted
-from strawberry.fastapi import GraphQLRouter
-from init_db import init_db
+from sqlmodel import Session, select
+from natsort import natsorted
 from pali_text_models import DictionaryTextModel, ReadingUnitModel, get_engine
-from graph_schema import schema
 
 # DB
 engine = get_engine()
@@ -21,13 +17,8 @@ engine = get_engine()
 STATIC_DIR = Path(__file__).parent / "svelte-app/static-svelte"
 
 
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    init_db()
-    yield
 
-
-app = FastAPI(lifespan=lifespan)
+app = FastAPI()
 
 
 @app.get("/api/reading_unit/{reading_unit_id}")
