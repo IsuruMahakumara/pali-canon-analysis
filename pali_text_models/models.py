@@ -13,6 +13,23 @@ DATABASE_URL = os.getenv(
 )
 
 # SQLModel models
+
+class ReadingUnitModel(SQLModel, table=True):
+    """A single reading unit from the Pali Canon"""
+    __tablename__ = "reading_units"
+    __table_args__ = {"extend_existing": True}
+    
+    index: str = Field(primary_key=True)
+    division: str
+    reading_unit_id: str
+    text: str | None = None
+    hela_text: str | None = None
+
+
+
+
+
+
 class SuttaTextModel(SQLModel, table=True):
     """A single verse/segment from the Sutta Texts"""
     __tablename__ = "sutta_texts"
