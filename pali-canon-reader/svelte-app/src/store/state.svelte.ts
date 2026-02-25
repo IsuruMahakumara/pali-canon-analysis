@@ -29,7 +29,7 @@ export const state: AppState = $state({
   current: '',
   verses: [],
   loading: false,
-  navOpen: true,
+  navOpen: false,
   showHela: false,
   dictionaryEntry: null,
   navTree: null

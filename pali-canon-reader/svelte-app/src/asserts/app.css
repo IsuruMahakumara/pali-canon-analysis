@@ -318,16 +318,6 @@ main.expanded {
   opacity: 1;
 }
 
-.word {
-  cursor: pointer;
-  border-radius: 2px;
-  padding: 0 0.05em;
-}
-
-.word:hover {
-  background: rgba(201, 166, 107, 0.15);
-}
-
 /* === Loading === */
 .loading {
   text-align: center;
