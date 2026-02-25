@@ -14,7 +14,7 @@ uv pip install -e .
 ## Run
 
 ```bash
-cd sutta-reader &&
+cd pali-canon-reader &&
 source .venv/bin/activate &&
 uv run uvicorn main:app --reload
 ```
