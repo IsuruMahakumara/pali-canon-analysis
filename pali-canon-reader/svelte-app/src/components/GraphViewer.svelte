@@ -1,12 +1,20 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  //import { api } from '../store/state.svelte';
   import cytoscape, { type Core, type ElementDefinition } from 'cytoscape';
   import dagre from 'cytoscape-dagre';
   import { indexGraphStore } from '../core/indexGraphStore';
 
+  interface ContextMenuState {
+    x: number;
+    y: number;
+    label: string;
+    readingUnitId?: string;
+  }
+
   let container = $state<HTMLDivElement>();
   let tooltip = $state<{ x: number; y: number; attrs: Record<string, string> } | null>(null);
-  let contextMenu = $state<{ x: number; y: number; label: string; readingUnitId?: string } | null>(null);
+  let contextMenu = $state<ContextMenuState | null>(null);
 
   const ROOT_ID = 'Canon';
   const LEVEL_COLORS: Record<number, string> = {
@@ -23,22 +31,29 @@
 
   cytoscape.use(dagre);
 
-  function copyLabel(label: string): void {
-    navigator.clipboard.writeText(label);
+  const DAGRE_LAYOUT = {
+    name: 'dagre',
+    rankDir: 'TB',
+    nodeSep: 40,
+    rankSep: 60,
+    animate: true,
+    animationDuration: 300,
+    fit: true,
+    padding: 30,
+  } as const;
+
+  function dismissContextMenu() {
     contextMenu = null;
   }
 
-  function dagreOpts() {
-    return {
-      name: 'dagre',
-      rankDir: 'TB',
-      nodeSep: 40,
-      rankSep: 60,
-      animate: true,
-      animationDuration: 300,
-      fit: true,
-      padding: 30,
-    };
+  function copyLabel(label: string): void {
+    navigator.clipboard.writeText(label);
+    dismissContextMenu();
+  }
+
+  function openReadingUnit(id: string): void {
+    dismissContextMenu();
+    window.open('/#' + id, '_blank');
   }
 
   function visibleIds(): Set<string> {
@@ -55,6 +70,12 @@
     return vis;
   }
 
+  function nodeLabel(id: string): string {
+    const hasKids = (childrenMap.get(id)?.length ?? 0) > 0;
+    if (!hasKids) return id;
+    return `${id} ${expanded.has(id) ? '▾' : '▸'}`;
+  }
+
   function refresh() {
     const vis = visibleIds();
     cy.batch(() => {
@@ -62,23 +83,17 @@
         const id = n.id();
         if (vis.has(id)) {
           (n as any).show();
-          const hasKids = (childrenMap.get(id)?.length ?? 0) > 0;
-          n.data('label', hasKids
-            ? `${id} ${expanded.has(id) ? '▾' : '▸'}`
-            : id
-          );
+          n.data('label', nodeLabel(id));
         } else {
           (n as any).hide();
         }
       });
       cy.edges().forEach(e => {
-        if (vis.has(e.data('source')) && vis.has(e.data('target')))
-          (e as any).show();
-        else
-          (e as any).hide();
+        const visible = vis.has(e.data('source')) && vis.has(e.data('target'));
+        (e as any)[visible ? 'show' : 'hide']();
       });
     });
-    cy.elements(':visible').layout(dagreOpts()).run();
+    cy.elements(':visible').layout({ ...DAGRE_LAYOUT }).run();
   }
 
   function collapseSubtree(nodeId: string) {
@@ -89,6 +104,22 @@
   function handleCollapseAll() {
     expanded = new Set([ROOT_ID]);
     refresh();
+  }
+
+  function toggleNode(id: string) {
+    if (!childrenMap.get(id)?.length) return;
+    if (expanded.has(id)) collapseSubtree(id);
+    else expanded.add(id);
+    refresh();
+  }
+
+  function buildChildrenMap(edges: ElementDefinition[]) {
+    childrenMap = new Map();
+    for (const e of edges) {
+      const src = e.data.source as string;
+      if (!childrenMap.has(src)) childrenMap.set(src, []);
+      childrenMap.get(src)!.push(e.data.target as string);
+    }
   }
 
   onMount(() => {
@@ -149,12 +180,7 @@
     const unsub = indexGraphStore.subscribe(s => {
       if (!cy || s.nodes.length === 0) return;
 
-      childrenMap = new Map();
-      for (const e of s.edges) {
-        const src = e.data.source as string;
-        if (!childrenMap.has(src)) childrenMap.set(src, []);
-        childrenMap.get(src)!.push(e.data.target as string);
-      }
+      buildChildrenMap(s.edges);
 
       const elems: ElementDefinition[] = [
         ...s.nodes.map(n => ({
@@ -173,16 +199,12 @@
     });
 
     cy.on('tap', 'node', evt => {
-      contextMenu = null;
-      const id = evt.target.id();
-      if (!childrenMap.get(id)?.length) return;
-      if (expanded.has(id)) collapseSubtree(id);
-      else expanded.add(id);
-      refresh();
+      dismissContextMenu();
+      toggleNode(evt.target.id());
     });
 
     cy.on('tap', evt => {
-      if (evt.target === cy) contextMenu = null;
+      if (evt.target === cy) dismissContextMenu();
     });
 
     cy.on('mouseover', 'node', evt => {
@@ -194,8 +216,12 @@
 
     cy.on('cxttap', 'node', e => {
       const attrs = e.target.data('attrs') || {};
-      const readingUnitId = attrs.reading_unit === 'True' ? attrs.sutta_id : undefined;
-      contextMenu = { x: e.originalEvent.clientX, y: e.originalEvent.clientY, label: e.target.id(), readingUnitId };
+      contextMenu = {
+        x: e.originalEvent.clientX,
+        y: e.originalEvent.clientY,
+        label: e.target.id(),
+        readingUnitId: attrs.reading_unit_id,
+      };
     });
 
     indexGraphStore.load('/Canon.graphml');
@@ -233,7 +259,7 @@
     >
       <button type="button" role="menuitem" onclick={() => copyLabel(contextMenu!.label)}>Copy name</button>
       {#if contextMenu.readingUnitId}
-        <button type="button" role="menuitem" onclick={() => { const id = contextMenu!.readingUnitId; contextMenu = null; window.open(location.origin + location.pathname + '#' + id, '_blank'); }}>Read</button>
+        <button type="button" role="menuitem" onclick={() => openReadingUnit(contextMenu!.readingUnitId!)}>Read</button>
       {/if}
     </div>
   {/if}

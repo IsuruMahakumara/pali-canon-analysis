@@ -23,7 +23,7 @@ The app will be available at http://localhost:8000
 
 
 ```bash
-cd svelte-app
+cd pali-canon-reader/svelte-app &&
 npm run dev
 ```
 

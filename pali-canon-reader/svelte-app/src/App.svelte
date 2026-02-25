@@ -17,7 +17,7 @@
     } else {
       currentPage = 'reader';
       const readingUnitId = hash.replace('#reader', '').replace('#', '');
-      if (readingUnitId) api.loadSutta(readingUnitId);
+      if (readingUnitId) api.loadReadingUnit(readingUnitId);
     }
   }
   
