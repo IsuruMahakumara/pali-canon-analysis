@@ -37,6 +37,14 @@
     {appState.navOpen ? '✕' : '☰'}
   </button>
 
+  {#if appState.current}
+    <button
+      class="script-toggle"
+      class:active={appState.showHela}
+      onclick={() => appState.showHela = !appState.showHela}
+    >{appState.showHela ? 'Latin' : 'හෙළ'}</button>
+  {/if}
+
   <a href="#graph" class="graph-link" title="Graph Explorer">⬡</a>
 
   <nav class:collapsed={!appState.navOpen}>
@@ -52,6 +60,33 @@
 {/if}
 
 <style>
+  .script-toggle {
+    position: fixed;
+    top: 0.5rem;
+    right: 3.5rem;
+    z-index: 100;
+    height: 2.5rem;
+    padding: 0 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #2d3748;
+    border: 1px solid #4a5568;
+    border-radius: 6px;
+    color: #e2e8f0;
+    font-size: 0.85rem;
+    cursor: pointer;
+  }
+
+  .script-toggle:hover {
+    background: #4a5568;
+  }
+
+  .script-toggle.active {
+    background: #4a5568;
+    color: #63b3ed;
+  }
+
   .graph-link {
     position: fixed;
     top: 0.5rem;

@@ -27,11 +27,6 @@
           <div class="reader-id">{state.current.toUpperCase()}</div>
           <h1 class="reader-title">{getUnitName(state.showHela)}</h1>
         </div>
-        <button 
-          class="script-toggle" 
-          class:active={state.showHela}
-          onclick={() => state.showHela = !state.showHela}
-        >{state.showHela ? 'Latin' : 'හෙළ'}</button>
       </div>
     </header>
     
