@@ -18,6 +18,7 @@ export interface AppState {
   verses: Verse[];
   loading: boolean;
   navOpen: boolean;
+  navMode: 'index' | 'dictionary';
   showHela: boolean;
   dictionaryEntry: DictionaryEntry | null;
   navTree: TreeNode | null;
@@ -30,6 +31,7 @@ export const state: AppState = $state({
   verses: [],
   loading: false,
   navOpen: false,
+  navMode: 'index',
   showHela: false,
   dictionaryEntry: null,
   navTree: null
@@ -84,13 +86,15 @@ export const api = {
    * Cleans a word string and fetches its definition [cite: 1, 8]
    */
   async lookupWord(word: string): Promise<void> {
-    const entry = word.trim().replace(/[.,;:!?()[\]'"–—]/g, '');
+    const entry = word.trim().replace(/[.,;:!?()[\]'"–—]/g, '').toLowerCase();
     if (!entry) return;
     
     try {
       const res = await fetch(`/api/dictionary/${encodeURIComponent(entry)}`);
       const data = await res.json();
       state.dictionaryEntry = data;
+      state.navMode = 'dictionary';
+      state.navOpen = true;
     } catch (error) {
       console.error("Dictionary lookup failed:", error);
       state.dictionaryEntry = null;

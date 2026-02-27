@@ -27,6 +27,27 @@ class ReadingUnitModel(SQLModel, table=True):
 
 
 
+class DictionaryTextModel(SQLModel, table=True):
+    """A single verse/segment from the Dictionary"""
+    __tablename__ = "pli2en_dpd_dict"
+    __table_args__ = {"extend_existing": True}
+    
+    entry: str = Field(primary_key=True)
+    definitions: dict | None = Field(default=None, sa_column=Column(JSONB, nullable=True))
+
+
+
+class VerseEditModel(SQLModel, table=True):
+    """Audit log for a  verse/segment edits - used to track changes to the text and apply to sc source files"""
+    __tablename__ = "canon_text_edits"
+    __table_args__ = {"extend_existing": True}
+    
+    index: str = Field(primary_key=True)
+    text: str | None = None
+    hela_text: str | None = None
+    en_texts: dict | None = Field(default=None, sa_column=Column(JSONB, nullable=True))
+    
+
 
 
 
@@ -53,13 +74,9 @@ class AbhidhammaTextModel(SQLModel, table=True):
     hela_text: str | None = None
 
 
-class DictionaryTextModel(SQLModel, table=True):
-    """A single verse/segment from the Dictionary"""
-    __tablename__ = "pli2en_dpd_dict"
-    __table_args__ = {"extend_existing": True}
-    
-    entry: str = Field(primary_key=True)
-    definitions: dict | None = Field(default=None, sa_column=Column(JSONB, nullable=True))
+
+
+
 
 
 

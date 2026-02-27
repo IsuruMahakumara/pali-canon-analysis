@@ -37,7 +37,7 @@ def get_reading_unit(reading_unit_id: str):
 def get_dictionary(entry: str):
     """Get the definition for a dictionary entry"""
     with Session(engine) as session:
-        stmt = select(DictionaryTextModel).where(DictionaryTextModel.entry == entry).o
+        stmt = select(DictionaryTextModel).where(DictionaryTextModel.entry == entry)
 
         try:
             result = session.exec(stmt)
