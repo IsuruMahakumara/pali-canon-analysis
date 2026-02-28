@@ -25222,6 +25222,161 @@
   <data key="d5">True</data>
   <data key="d6">pt24.22</data>
 </node>
+<node id="Uddesa">
+  <data key="d0">3</data>
+</node>
+<node id="Niddesa">
+  <data key="d0">3</data>
+</node>
+<node id="ds1.1.Tikamātikā">
+  <data key="d3">Tikamātikā</data>
+  <data key="d0">4</data>
+  <data key="d5">True</data>
+  <data key="d6">ds1.1</data>
+  <data key="d1">mātikā</data>
+</node>
+<node id="ds1.2.Dukamātikā">
+  <data key="d3">Dukamātikā</data>
+  <data key="d0">4</data>
+  <data key="d5">True</data>
+  <data key="d6">ds1.2</data>
+  <data key="d1">mātikā</data>
+</node>
+<node id="ds1.3.Suttantikadukamātikā">
+  <data key="d3">Suttantikadukamātikā</data>
+  <data key="d0">4</data>
+  <data key="d5">True</data>
+  <data key="d6">ds1.3</data>
+  <data key="d1">mātikā</data>
+</node>
+<node id="ds2.1.Cittuppādakaṇḍa">
+  <data key="d3">Cittuppādakaṇḍa</data>
+  <data key="d1">kaṇḍa</data>
+  <data key="d0">4</data>
+</node>
+<node id="ds2.4.Aṭṭhakathākaṇḍa">
+  <data key="d3">Aṭṭhakathākaṇḍa</data>
+  <data key="d1">kaṇḍa</data>
+  <data key="d0">4</data>
+</node>
+<node id="ds2.2.Rūpakaṇḍa">
+  <data key="d3">Rūpakaṇḍa</data>
+  <data key="d1">kaṇḍa</data>
+  <data key="d0">4</data>
+</node>
+<node id="ds2.3.Nikkhepakaṇḍa">
+  <data key="d3">Nikkhepakaṇḍa</data>
+  <data key="d1">kaṇḍa</data>
+  <data key="d0">4</data>
+</node>
+<node id="ds2.1.3.Arūpāvacarakusala">
+  <data key="d3">Arūpāvacarakusala</data>
+  <data key="d0">5</data>
+  <data key="d5">True</data>
+  <data key="d6">ds2.1.3</data>
+</node>
+<node id="ds2.4.2.Dukaatthuddhāra">
+  <data key="d3">Dukaatthuddhāra</data>
+  <data key="d0">5</data>
+  <data key="d5">True</data>
+  <data key="d6">ds2.4.2</data>
+</node>
+<node id="ds2.1.8.Lokuttaravipāka-paṭhamamaggavipāka">
+  <data key="d3">Lokuttaravipāka-paṭhamamaggavipāka</data>
+  <data key="d0">5</data>
+  <data key="d5">True</data>
+  <data key="d6">ds2.1.8</data>
+</node>
+<node id="ds2.2.3.Rūpavibhatti">
+  <data key="d3">Rūpavibhatti</data>
+  <data key="d0">5</data>
+  <data key="d5">True</data>
+  <data key="d6">ds2.2.3</data>
+</node>
+<node id="ds2.1.7.Abyākatavipāka">
+  <data key="d3">Abyākatavipāka</data>
+  <data key="d0">5</data>
+  <data key="d5">True</data>
+  <data key="d6">ds2.1.7</data>
+</node>
+<node id="ds2.1.2.Rūpāvacarakusala">
+  <data key="d3">Rūpāvacarakusala</data>
+  <data key="d0">5</data>
+  <data key="d5">True</data>
+  <data key="d6">ds2.1.2</data>
+</node>
+<node id="ds2.3.1.Tikanikkhepa">
+  <data key="d3">Tikanikkhepa</data>
+  <data key="d0">5</data>
+  <data key="d5">True</data>
+  <data key="d6">ds2.3.1</data>
+</node>
+<node id="ds2.1.9.Akusalavipākaabyākata">
+  <data key="d3">Akusalavipākaabyākata</data>
+  <data key="d0">5</data>
+  <data key="d5">True</data>
+  <data key="d6">ds2.1.9</data>
+</node>
+<node id="ds2.2.2.Mātikā">
+  <data key="d3">Mātikā</data>
+  <data key="d0">5</data>
+  <data key="d5">True</data>
+  <data key="d6">ds2.2.2</data>
+</node>
+<node id="ds2.1.6.Dvādasaakusala">
+  <data key="d3">Dvādasaakusala</data>
+  <data key="d0">5</data>
+  <data key="d5">True</data>
+  <data key="d6">ds2.1.6</data>
+</node>
+<node id="ds2.1.1.Kāmāvacarakusala">
+  <data key="d3">Kāmāvacarakusala</data>
+  <data key="d0">5</data>
+  <data key="d5">True</data>
+  <data key="d6">ds2.1.1</data>
+</node>
+<node id="ds2.3.2.Dukanikkhepa">
+  <data key="d3">Dukanikkhepa</data>
+  <data key="d0">5</data>
+  <data key="d5">True</data>
+  <data key="d6">ds2.3.2</data>
+</node>
+<node id="ds2.1.5.Lokuttarakusala">
+  <data key="d3">Lokuttarakusala</data>
+  <data key="d0">5</data>
+  <data key="d5">True</data>
+  <data key="d6">ds2.1.5</data>
+</node>
+<node id="ds2.2.1.Uddesa">
+  <data key="d3">Uddesa</data>
+  <data key="d0">5</data>
+  <data key="d5">True</data>
+  <data key="d6">ds2.2.1</data>
+</node>
+<node id="ds2.4.1.Tikaatthuddhāra">
+  <data key="d3">Tikaatthuddhāra</data>
+  <data key="d0">5</data>
+  <data key="d5">True</data>
+  <data key="d6">ds2.4.1</data>
+</node>
+<node id="ds2.1.10.Ahetukakiriyāabyākata">
+  <data key="d3">Ahetukakiriyāabyākata</data>
+  <data key="d0">5</data>
+  <data key="d5">True</data>
+  <data key="d6">ds2.1.10</data>
+</node>
+<node id="ds2.3.3.Suttantikadukanikkhepa">
+  <data key="d3">Suttantikadukanikkhepa</data>
+  <data key="d0">5</data>
+  <data key="d5">True</data>
+  <data key="d6">ds2.3.3</data>
+</node>
+<node id="ds2.1.4.Tebhūmakakusala">
+  <data key="d3">Tebhūmakakusala</data>
+  <data key="d0">5</data>
+  <data key="d5">True</data>
+  <data key="d6">ds2.1.4</data>
+</node>
 <edge source="Canon" target="Sutta"/>
 <edge source="Canon" target="Vinaya"/>
 <edge source="Canon" target="Abhidhamma"/>
@@ -25248,6 +25403,8 @@
 <edge source="Majjhimanikāya" target="mn:Mūlapaṇṇāsa"/>
 <edge source="Majjhimanikāya" target="mn:Majjhimapaṇṇāsa"/>
 <edge source="Majjhimanikāya" target="mn:Uparipaṇṇāsa"/>
+<edge source="Dhammasangani" target="Uddesa"/>
+<edge source="Dhammasangani" target="Niddesa"/>
 <edge source="Vibhanga" target="vb1:Khandhavibhaṅga"/>
 <edge source="Vibhanga" target="vb2:Āyatanavibhaṅga"/>
 <edge source="Vibhanga" target="vb3:Dhātuvibhaṅga"/>
@@ -29302,4 +29459,29 @@
 <edge source="pt24.Dukadukapaṭṭhānapāḷi" target="pt24.20.Saraṇaduka, Āsavagocchakādi"/>
 <edge source="pt24.Dukadukapaṭṭhānapāḷi" target="pt24.21.Saraṇaduka, Mahantaradukādi"/>
 <edge source="pt24.Dukadukapaṭṭhānapāḷi" target="pt24.22.Saraṇaduka, Piṭṭhiduka"/>
+<edge source="Uddesa" target="ds1.1.Tikamātikā"/>
+<edge source="Uddesa" target="ds1.3.Suttantikadukamātikā"/>
+<edge source="Uddesa" target="ds1.2.Dukamātikā"/>
+<edge source="Niddesa" target="ds2.1.Cittuppādakaṇḍa"/>
+<edge source="Niddesa" target="ds2.4.Aṭṭhakathākaṇḍa"/>
+<edge source="Niddesa" target="ds2.2.Rūpakaṇḍa"/>
+<edge source="Niddesa" target="ds2.3.Nikkhepakaṇḍa"/>
+<edge source="ds2.1.Cittuppādakaṇḍa" target="ds2.1.3.Arūpāvacarakusala"/>
+<edge source="ds2.1.Cittuppādakaṇḍa" target="ds2.1.8.Lokuttaravipāka-paṭhamamaggavipāka"/>
+<edge source="ds2.1.Cittuppādakaṇḍa" target="ds2.1.7.Abyākatavipāka"/>
+<edge source="ds2.1.Cittuppādakaṇḍa" target="ds2.1.2.Rūpāvacarakusala"/>
+<edge source="ds2.1.Cittuppādakaṇḍa" target="ds2.1.9.Akusalavipākaabyākata"/>
+<edge source="ds2.1.Cittuppādakaṇḍa" target="ds2.1.6.Dvādasaakusala"/>
+<edge source="ds2.1.Cittuppādakaṇḍa" target="ds2.1.1.Kāmāvacarakusala"/>
+<edge source="ds2.1.Cittuppādakaṇḍa" target="ds2.1.5.Lokuttarakusala"/>
+<edge source="ds2.1.Cittuppādakaṇḍa" target="ds2.1.10.Ahetukakiriyāabyākata"/>
+<edge source="ds2.1.Cittuppādakaṇḍa" target="ds2.1.4.Tebhūmakakusala"/>
+<edge source="ds2.4.Aṭṭhakathākaṇḍa" target="ds2.4.2.Dukaatthuddhāra"/>
+<edge source="ds2.4.Aṭṭhakathākaṇḍa" target="ds2.4.1.Tikaatthuddhāra"/>
+<edge source="ds2.2.Rūpakaṇḍa" target="ds2.2.3.Rūpavibhatti"/>
+<edge source="ds2.2.Rūpakaṇḍa" target="ds2.2.2.Mātikā"/>
+<edge source="ds2.2.Rūpakaṇḍa" target="ds2.2.1.Uddesa"/>
+<edge source="ds2.3.Nikkhepakaṇḍa" target="ds2.3.1.Tikanikkhepa"/>
+<edge source="ds2.3.Nikkhepakaṇḍa" target="ds2.3.2.Dukanikkhepa"/>
+<edge source="ds2.3.Nikkhepakaṇḍa" target="ds2.3.3.Suttantikadukanikkhepa"/>
 </graph></graphml>
