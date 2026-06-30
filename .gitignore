@@ -31,3 +31,11 @@ __pycache__/
 
 # IDE
 .vscode/
+
+
+
+
+# --- Obsidian Specifics ---
+# Ignore Obsidian's internal workspace layouts (prevents constant merge conflicts)
+canon_vault/.obsidian/workspace.json
+canon_vault/.obsidian/workspace-mobile.json
