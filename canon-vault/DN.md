@@ -1,14 +1,18 @@
 # Dīgha Nikāya: Map of Content
 
 > **Traditional Structure Overview:** 3 Vaggas | 34 Suttas
->
-> - **Sīlakkhandha Vagga (DN 1–13):** Focuses on the "Graduated Training" (Morality, Concentration, Wisdom) and refuting Brahminical views.
-> - **Mahā Vagga (DN 14–23):** Doctrines of deep metaphysics, dependent origination, and historical narratives.
-> - **Pāṭika Vagga (DN 24–34):** Cosmology, ethics for laypeople, and numerical recitations.
+
+
+| Vagga Name             | Number of Suttas | Sutta Range   | Traditional Classification & Core Focus                                                                                                                                                                            |
+| ---------------------- | ---------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Sīlakkhandha Vagga** | 13               | DN 1 – DN 13  | Focuses on the **Graduated Training** (Ethics, Absorption/Concentration, and Wisdom) while systematically deconstructing Brahminical caste pride and speculative philosophies.                                     |
+| **Mahā Vagga**         | 10               | DN 14 – DN 23 | Contains the heavy doctrinal foundations of early Buddhism, including **Dependent Origination ($Paṭicca-samuppāda$)**, deep mindfulness mechanics, and crucial historical narratives like the Buddha's final days. |
+| **Pāṭika Vagga**       | 11               | DN 24 – DN 34 | An eclectic mix covering **cosmic evolution/genesis**, guidelines and social ethics for lay householders, and highly structured numerical summaries designed for communal chanting.                                |
+
 
 ---
 
-## 1. Sīlakkhandha Vagga 
+## 1. Sīlakkhandha Vagga
 
 
 | Sutta                         | Traditional Category / Context      | Core Conceptual Focus                                  | Key Dialogists                  | Status          |
@@ -30,26 +34,26 @@
 
 ---
 
-## 2. Mahā Vagga 
+## 2. Mahā Vagga
 
 
-| Sutta                              | Traditional Category / Context | Core Conceptual Focus                               | Key Dialogists                | Status          |
-| ---------------------------------- | ------------------------------ | --------------------------------------------------- | ----------------------------- | --------------- |
-| [[DN 14 - Mahāpadāna Sutta]]       | Buddha-Vaṃsa (Cosmic Lineage)  | Universal blueprint of all past Buddhas' lives      | Buddha to Monks               | ⚪ *Not Started* |
-| [[DN 15 - Mahānidāna Sutta]]       | Paticcasamuppāda (Causation)   | Deep-dive into Conditioned Genesis & Nāmarūpa       | Buddha, Ānanda                | ⚪ *Not Started* |
-| [[DN 16 - Mahāparinibbāna Sutta]]  | Itihāsa (Historical Narrative) | Last days, illness, and the legacy of self-reliance | Buddha, Ānanda, Māra, Cunda   | ⚪ *Not Started* |
-| [[DN 17 - Mahāsudassana Sutta]]    | Anicca                         | Past-life epic of a cosmic king showing decay       | Buddha, Ānanda                | ⚪ *Not Started* |
-| [[DN 18 - Janavasabha Sutta]]      | Paraloka (Rebirth Realities)   | Cosmic hierarchy and outcomes for lay practitioners | Buddha, Janavasabha Yakkha    | ⚪ *Not Started* |
-| [[DN 19 - Mahāgovinda Sutta]]      | Renunciation Narrative         | Historical/mythic precedent for the homeless life   | Buddha, Pañcasikha            | ⚪ *Not Started* |
-| [[DN 20 - Mahāsamaya Sutta]]       | Deva-Sannipāta (The Pantheon)  | Gathering of localized deities recognizing Dhamma   | Buddha, Assemble of Devas     | ⚪ *Not Started* |
-| [[DN 21 - Sakkapañha Sutta]]       | Cetosila (Mental Conflict)     | Tracing social and mental conflict to envy/desire   | Buddha, Sakka (King of Gods)  | ⚪ *Not Started* |
-| [[DN 22 - Mahāsatipaṭṭhāna Sutta]] | Bhāvanā (Meditation Practice)  | The 4 Foundations of Mindfulness (Kāya to Dhamma)   | Buddha to Kuru Inhabitants    | ⚪ *Not Started* |
-| [[DN 23 - Pāyāsi Sutta]]           | Ditthi-Vinodana (Skepticism)   | Philosophical refutation of materialist nihilism    | Kumāra Kassapa, Prince Pāyāsi | ⚪ *Not Started* |
+| Sutta                              | Traditional Category / Context | Core Conceptual Focus                               | Key Dialogists                              | Status          |
+| ---------------------------------- | ------------------------------ | --------------------------------------------------- | ------------------------------------------- | --------------- |
+| [[DN 14 - Mahāpadāna Sutta]]       | Buddha-Vaṃsa (Cosmic Lineage)  | Universal blueprint of all past Buddhas' lives      | Buddha to Monks                             | ⚪ *Not Started* |
+| [[DN 15 - Mahānidāna Sutta]]       | Paticcasamuppāda (Causation)   | Deep-dive into Conditioned Genesis & Nāmarūpa       | Buddha, Ānanda                              | ⚪ *Not Started* |
+| [[DN 16 - Mahāparinibbāna Sutta]]  | Itihāsa (Historical Narrative) | Last days, illness, and the legacy of self-reliance | Buddha, Ānanda, Māra, Cunda                 | ⚪ *Not Started* |
+| [[DN 17 - Mahāsudassana Sutta]]    | Anicca                         | Past-life epic of a cosmic king showing decay       | Buddha, Ānanda                              | ⚪ *Not Started* |
+| [[DN 18 - Janavasabha Sutta]]      | Paraloka (Rebirth Realities)   | Cosmic hierarchy and outcomes for lay practitioners | Buddha, Janavasabha Yakkha (King Bimbisara) | ⚪ *Not Started* |
+| [[DN 19 - Mahāgovinda Sutta]]      | Renunciation Narrative         | Historical/mythic precedent for the homeless life   | Buddha, Pañcasikha                          | ⚪ *Not Started* |
+| [[DN 20 - Mahāsamaya Sutta]]       | Deva-Sannipāta (The Pantheon)  | Gathering of localized deities recognizing Dhamma   | Buddha, Assemble of Devas                   | ⚪ *Not Started* |
+| [[DN 21 - Sakkapañha Sutta]]       | Cetosila (Mental Conflict)     | Tracing social and mental conflict to envy/desire   | Buddha, Sakka (King of Gods)                | ⚪ *Not Started* |
+| [[DN 22 - Mahāsatipaṭṭhāna Sutta]] | Bhāvanā (Meditation Practice)  | The 4 Foundations of Mindfulness (Kāya to Dhamma)   | Buddha to Kuru Inhabitants                  | ⚪ *Not Started* |
+| [[DN 23 - Pāyāsi Sutta]]           | Ditthi-Vinodana (Skepticism)   | Philosophical refutation of materialist nihilism    | Kumāra Kassapa, Prince Pāyāsi               | ⚪ *Not Started* |
 
 
 ---
 
-## 3. Pāṭika Vagga 
+## 3. Pāṭika Vagga
 
 
 | Sutta                           | Traditional Category / Context  | Core Conceptual Focus                                    | Key Dialogists               | Status          |
